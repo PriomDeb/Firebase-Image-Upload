@@ -1,6 +1,7 @@
 import 'package:file_picker/file_picker.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'storage.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -31,6 +32,8 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  final FirebaseStorage storage = FirebaseStorage();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -57,6 +60,8 @@ class _HomeScreenState extends State<HomeScreen> {
 
               final path = results.files.single.path!;
               final fileName = results.files.single.name;
+
+              storage.uploadFile(path, fileName).then((value) => print("Done"));
 
               print(path);
               print(fileName);

@@ -33,6 +33,9 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   final FirebaseStorage storage = FirebaseStorage();
+  bool _uploading = false;
+  bool _uploaded = false;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -107,12 +110,23 @@ class _HomeScreenState extends State<HomeScreen> {
                         return null;
                       }
 
+                      setState(() {
+                        _uploading = true;
+                        _uploaded = false;
+                      });
+
                       final path = results.files.single.path!;
                       final fileName = results.files.single.name;
 
                       storage
                           .uploadFile(path, fileName)
-                          .then((value) => print("Done"));
+                          .then((value) => print("Done"))
+                          .whenComplete(() {
+                        setState(() {
+                          _uploading = false;
+                          _uploaded = true;
+                        });
+                      });
 
                       print(path);
                       print(fileName);
@@ -135,7 +149,19 @@ class _HomeScreenState extends State<HomeScreen> {
                       ),
                     ),
                   ),
-                  SizedBox(height: 16),
+                  // if (_uploading) const LinearProgressIndicator(),
+                  if (_uploading)
+                    CircularProgressIndicator()
+                  else if (_uploaded)
+                    const CircleAvatar(
+                      backgroundColor: Colors.green,
+                      child: Icon(
+                        Icons.check,
+                        color: Colors.white,
+                      ),
+                    ),
+                  const SizedBox(height: 16),
+                  const SizedBox(height: 16),
                   const Text(
                     'Cloud Storage Homescreen',
                     style: TextStyle(

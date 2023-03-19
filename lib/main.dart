@@ -46,13 +46,13 @@ class _HomeScreenState extends State<HomeScreen> {
       body: Stack(
         children: [
           Positioned(
-            top: -74,
+            top: -78,
             left: -200,
             child: Container(
               width: 600,
               height: 400,
               decoration: const BoxDecoration(
-                color: Color.fromARGB(255, 101, 186, 255),
+                color: Color.fromARGB(178, 101, 186, 255),
                 shape: BoxShape.circle,
               ),
               child: const Icon(
@@ -69,7 +69,7 @@ class _HomeScreenState extends State<HomeScreen> {
               width: 200,
               height: 300,
               decoration: const BoxDecoration(
-                color: Color.fromARGB(255, 101, 186, 255),
+                color: Color.fromARGB(255, 143, 204, 253),
                 shape: BoxShape.circle,
               ),
               child: const Icon(
@@ -193,13 +193,13 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
           ),
           Positioned(
-            bottom: -300,
+            bottom: -350,
             right: -200,
             child: Container(
               width: 750,
               height: 500,
               decoration: const BoxDecoration(
-                color: Color.fromARGB(255, 101, 186, 255),
+                color: Color.fromARGB(255, 171, 217, 255),
                 shape: BoxShape.circle,
               ),
             ),

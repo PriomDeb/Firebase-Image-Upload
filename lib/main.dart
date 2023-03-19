@@ -47,10 +47,10 @@ class _HomeScreenState extends State<HomeScreen> {
         children: [
           Positioned(
             top: -78,
-            left: -200,
+            left: -210,
             child: Container(
               width: 600,
-              height: 400,
+              height: 380,
               decoration: const BoxDecoration(
                 color: Color.fromARGB(178, 101, 186, 255),
                 shape: BoxShape.circle,
@@ -75,7 +75,7 @@ class _HomeScreenState extends State<HomeScreen> {
               child: const Icon(
                 Icons.wb_cloudy_outlined,
                 size: 100,
-                color: Color.fromARGB(255, 255, 255, 255),
+                color: Color.fromARGB(0, 255, 255, 255),
               ),
             ),
           ),

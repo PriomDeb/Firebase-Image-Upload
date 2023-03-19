@@ -39,6 +39,50 @@ class _HomeScreenState extends State<HomeScreen> {
   bool _uploading = false;
   bool _uploaded = false;
 
+  Future<void> _uploadImageFromSelection() async {
+    final results = await FilePicker.platform.pickFiles(
+      allowMultiple: false,
+      type: FileType.custom,
+      allowedExtensions: ['png', 'jpg', 'jpeg'],
+    );
+
+    if (results == null) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text("No file selected"),
+        ),
+      );
+      return null;
+    } else {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text("Image is uploading"),
+        ),
+      );
+    }
+
+    setState(() {
+      _uploading = true;
+      _uploaded = false;
+    });
+
+    final path = results.files.single.path!;
+    final fileName = results.files.single.name;
+
+    storage
+        .uploadFile(path, fileName)
+        .then((value) => print("Done"))
+        .whenComplete(() {
+      setState(() {
+        _uploading = false;
+        _uploaded = true;
+      });
+    });
+
+    print(path);
+    print(fileName);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -107,51 +151,9 @@ class _HomeScreenState extends State<HomeScreen> {
               child: Column(
                 children: [
                   ElevatedButton(
-                    onPressed: () async {
-                      final results = await FilePicker.platform.pickFiles(
-                        allowMultiple: false,
-                        type: FileType.custom,
-                        allowedExtensions: ['png', 'jpg', 'jpeg'],
-                      );
-
-                      if (results == null) {
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          const SnackBar(
-                            content: Text("No file selected"),
-                          ),
-                        );
-                        return null;
-                      } else {
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          const SnackBar(
-                            content: Text("Image is uploading"),
-                          ),
-                        );
-                      }
-
-                      setState(() {
-                        _uploading = true;
-                        _uploaded = false;
-                      });
-
-                      final path = results.files.single.path!;
-                      final fileName = results.files.single.name;
-
-                      storage
-                          .uploadFile(path, fileName)
-                          .then((value) => print("Done"))
-                          .whenComplete(() {
-                        setState(() {
-                          _uploading = false;
-                          _uploaded = true;
-                        });
-                      });
-
-                      print(path);
-                      print(fileName);
-                    },
+                    onPressed: _uploadImageFromSelection,
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: Color.fromARGB(255, 66, 161, 240),
+                      backgroundColor: const Color.fromARGB(255, 66, 161, 240),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(10),
                       ),

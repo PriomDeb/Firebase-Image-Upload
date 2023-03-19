@@ -46,26 +46,36 @@ class _HomeScreenState extends State<HomeScreen> {
       body: Stack(
         children: [
           Positioned(
-            top: -50,
-            left: -50,
+            top: -74,
+            left: -200,
             child: Container(
-              width: 200,
-              height: 200,
+              width: 600,
+              height: 400,
               decoration: const BoxDecoration(
-                color: Colors.blue,
+                color: Color.fromARGB(255, 101, 186, 255),
                 shape: BoxShape.circle,
+              ),
+              child: const Icon(
+                Icons.cloud_circle,
+                size: 480,
+                color: Color.fromARGB(255, 255, 255, 255),
               ),
             ),
           ),
           Positioned(
-            top: -30,
+            top: -100,
             right: -30,
             child: Container(
-              width: 150,
-              height: 150,
+              width: 200,
+              height: 300,
               decoration: const BoxDecoration(
-                color: Colors.blue,
+                color: Color.fromARGB(255, 101, 186, 255),
                 shape: BoxShape.circle,
+              ),
+              child: const Icon(
+                Icons.wb_cloudy_outlined,
+                size: 100,
+                color: Color.fromARGB(255, 255, 255, 255),
               ),
             ),
           ),
@@ -84,7 +94,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 child: const Icon(
                   Icons.cloud_upload,
                   size: 100,
-                  color: Colors.blue,
+                  color: Color.fromARGB(255, 255, 255, 255),
                 ),
               ),
             ),
@@ -179,6 +189,18 @@ class _HomeScreenState extends State<HomeScreen> {
                     ),
                   ),
                 ],
+              ),
+            ),
+          ),
+          Positioned(
+            bottom: -300,
+            right: -200,
+            child: Container(
+              width: 750,
+              height: 500,
+              decoration: const BoxDecoration(
+                color: Color.fromARGB(255, 101, 186, 255),
+                shape: BoxShape.circle,
               ),
             ),
           ),

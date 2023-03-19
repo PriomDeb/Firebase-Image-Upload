@@ -2,6 +2,7 @@ import 'package:file_picker/file_picker.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'storage.dart';
+import 'package:wakelock/wakelock.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -14,12 +15,14 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    Wakelock.enable();
+
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: HomeScreen(),
+      home: const HomeScreen(),
     );
   }
 }
@@ -73,9 +76,9 @@ class _HomeScreenState extends State<HomeScreen> {
             child: Center(
               child: Container(
                 width: 200,
-                height: 200,
+                height: 510,
                 decoration: const BoxDecoration(
-                  color: Colors.white,
+                  color: Color.fromARGB(255, 139, 218, 255),
                   shape: BoxShape.circle,
                 ),
                 child: const Icon(
@@ -108,6 +111,12 @@ class _HomeScreenState extends State<HomeScreen> {
                           ),
                         );
                         return null;
+                      } else {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          const SnackBar(
+                            content: Text("Image is uploading"),
+                          ),
+                        );
                       }
 
                       setState(() {
@@ -132,7 +141,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       print(fileName);
                     },
                     style: ElevatedButton.styleFrom(
-                      primary: Colors.blue,
+                      backgroundColor: Color.fromARGB(255, 66, 161, 240),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(10),
                       ),
@@ -140,10 +149,10 @@ class _HomeScreenState extends State<HomeScreen> {
                     child: const Padding(
                       padding: EdgeInsets.all(16.0),
                       child: Text(
-                        'Upload Files',
+                        'Upload Images',
                         style: TextStyle(
                           fontSize: 24,
-                          color: Colors.white,
+                          color: Color.fromARGB(255, 255, 255, 255),
                           fontWeight: FontWeight.bold,
                         ),
                       ),
@@ -151,7 +160,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   ),
                   // if (_uploading) const LinearProgressIndicator(),
                   if (_uploading)
-                    CircularProgressIndicator()
+                    const CircularProgressIndicator()
                   else if (_uploaded)
                     const CircleAvatar(
                       backgroundColor: Colors.green,
@@ -163,7 +172,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   const SizedBox(height: 16),
                   const SizedBox(height: 16),
                   const Text(
-                    'Cloud Storage Homescreen',
+                    'Upload Images of Birth Info',
                     style: TextStyle(
                       fontSize: 18,
                       color: Colors.blue,
